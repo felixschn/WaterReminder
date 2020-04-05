@@ -1,0 +1,2 @@
+rootProject.name='WaterReminder2'
+include ':app'
