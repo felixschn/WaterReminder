@@ -27,7 +27,7 @@ public class WaterRepository {
         return mWaterDatabase.getWaterDao().getWaters();
     }
 
-    public LiveData<Integer> retrieveAmountOfWaterTask(){
+    public List<Water> retrieveAmountOfWaterTask(){
         return mWaterDatabase.getWaterDao().getAmountOfWater();
     }
 

@@ -131,6 +131,7 @@ public class WaterFragment extends Fragment implements View.OnClickListener, IMa
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        retrieveAmountOfWater();
 
         //TODO Im Tutorial, da keine Fragments, anders -> Schauen ob geht
 
@@ -143,6 +144,7 @@ public class WaterFragment extends Fragment implements View.OnClickListener, IMa
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        retrieveAmountOfWater();
         View view = inflater.inflate(R.layout.fragment_water, container, false);
         currentAmountOfWaterTextView = (TextView) view.findViewById(R.id.currentWater);
         goalOfWater = (TextView) view.findViewById((R.id.goalWater));
@@ -165,6 +167,7 @@ public class WaterFragment extends Fragment implements View.OnClickListener, IMa
         //insertFakesWaterS();
 
         retrieveWaters();
+        retrieveAmountOfWater();
 
         //Updating the TextView with the new Database Entries, so that t
        /* System.out.println("AmountList in onCreateView: " + mAmountOfWater);
@@ -172,7 +175,7 @@ public class WaterFragment extends Fragment implements View.OnClickListener, IMa
             sumOfCurrentAmountOfWater += waters.getAmount();
         }*/
 
-       currentAmountOfWaterTextView.setText("" +retrieveAmountOfWater());
+       currentAmountOfWaterTextView.setText("" +sumOfCurrentAmountOfWater);
 
         /*FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.detach(WaterFragment.this).attach(WaterFragment.this).commit();*/
@@ -258,11 +261,11 @@ public class WaterFragment extends Fragment implements View.OnClickListener, IMa
         });
     }*/
 
-    private Integer retrieveAmountOfWater() {
-        Integer retrieveAmountInteger = mWaterRepository.retrieveAmountOfWaterTask().getValue();
-        return retrieveAmountInteger;
+    private void retrieveAmountOfWater(){
+        for (int i = 0; i < mWaterRepository.retrieveAmountOfWaterTask().size(); i++) {
+            sumOfCurrentAmountOfWater = mWaterRepository.retrieveAmountOfWaterTask().get(i).getAmount();
+        }
     }
-
     private void saveWaters() {
         if (water != null) {
             mWaterRepository.inserWaterTask(water);

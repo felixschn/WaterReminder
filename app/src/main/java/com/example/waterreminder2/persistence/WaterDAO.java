@@ -19,8 +19,9 @@ public interface WaterDAO {
     @Query("SELECT * FROM waters")
     LiveData<List<Water>> getWaters();
 
-    @Query("SELECT COALESCE(sum(COALESCE(amount,0)),0) from waters")
-    LiveData<Integer> getAmountOfWater();
+    //@Query("SELECT COALESCE(sum(COALESCE(amount,0)),0) from waters")
+    @Query("SELECT id,amount from waters")
+    List<Water> getAmountOfWater();
 
     @Delete
     int delete (Water... waters);
